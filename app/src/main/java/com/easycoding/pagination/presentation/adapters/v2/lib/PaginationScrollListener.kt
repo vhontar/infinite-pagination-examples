@@ -1,4 +1,4 @@
-package com.easycoding.pagination.presentation.adapters.v1.lib
+package com.easycoding.pagination.presentation.adapters.v2.lib
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

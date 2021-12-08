@@ -1,13 +1,13 @@
-package com.easycoding.pagination.presentation.adapters.v1
+package com.easycoding.pagination.presentation.adapters.v2
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.easycoding.pagination.business.domain.model.Recipe
 import com.easycoding.pagination.databinding.RecyclerviewRecipeItemBinding
-import com.easycoding.pagination.presentation.adapters.v1.lib.ItemType
-import com.easycoding.pagination.presentation.adapters.v1.lib.PagingAdapter
-import com.easycoding.pagination.presentation.adapters.v1.lib.ProgressViewHolder
+import com.easycoding.pagination.presentation.adapters.v2.lib.ItemType
+import com.easycoding.pagination.presentation.adapters.v2.lib.PagingAdapter
+import com.easycoding.pagination.presentation.adapters.v2.lib.ProgressViewHolder
 import com.easycoding.pagination.utils.LoggerUtils
 import com.easycoding.pagination.utils.loadUrl
 
@@ -23,7 +23,7 @@ class RecipeAdapter: PagingAdapter() {
         // if items doesn't have position or type doesn't match to Recipe
         try {
             when (holder) {
-                is RecipeViewHolder -> holder.bind(currentList[position] as Recipe)
+                is RecipeViewHolder -> holder.bind(getItem(position) as Recipe?)
             }
         } catch (e: Throwable) {
             LoggerUtils.logException(e)
@@ -31,7 +31,7 @@ class RecipeAdapter: PagingAdapter() {
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(currentList[position]) {
+        return when(getItem(position)) {
             is Recipe -> ItemType.ITEM.ordinal
             else -> ItemType.PROGRESS_BAR.ordinal
         }
@@ -42,7 +42,10 @@ class RecipeViewHolder(
     private val binding: RecyclerviewRecipeItemBinding
 ): RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(recipe: Recipe) {
+    fun bind(recipe: Recipe?) {
+        if (recipe == null)
+            return
+
         binding.item = recipe
         binding.ivRecipe.loadUrl(recipe.imageUrl)
         binding.executePendingBindings()

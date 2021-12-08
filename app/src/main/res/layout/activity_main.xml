@@ -21,7 +21,6 @@
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
-
         <ProgressBar
                 android:id="@+id/pbMainLoader"
                 android:layout_width="wrap_content"
@@ -32,5 +31,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView android:id="@+id/test" android:layout_width="wrap_content"
+                                                                           android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
