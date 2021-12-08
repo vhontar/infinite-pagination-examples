@@ -21,7 +21,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/ivRecipe"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="150dp"
                     android:scaleType="fitXY"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>

@@ -1,15 +1,13 @@
 package com.easycoding.pagination.presentation.adapters.v1
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.easycoding.pagination.business.domain.model.Recipe
-import com.easycoding.pagination.databinding.RecyclerviewRecipeItemBinding
+import com.easycoding.pagination.presentation.adapters.common.viewholders.RecipeViewHolder
 import com.easycoding.pagination.presentation.adapters.v1.lib.ItemType
 import com.easycoding.pagination.presentation.adapters.v1.lib.PagingAdapter
 import com.easycoding.pagination.presentation.adapters.v1.lib.ProgressViewHolder
 import com.easycoding.pagination.utils.LoggerUtils
-import com.easycoding.pagination.utils.loadUrl
 
 class RecipeAdapter: PagingAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,25 +32,6 @@ class RecipeAdapter: PagingAdapter() {
         return when(currentList[position]) {
             is Recipe -> ItemType.ITEM.ordinal
             else -> ItemType.PROGRESS_BAR.ordinal
-        }
-    }
-}
-
-class RecipeViewHolder(
-    private val binding: RecyclerviewRecipeItemBinding
-): RecyclerView.ViewHolder(binding.root) {
-
-    fun bind(recipe: Recipe) {
-        binding.item = recipe
-        binding.ivRecipe.loadUrl(recipe.imageUrl)
-        binding.executePendingBindings()
-    }
-
-    companion object {
-        fun from(parent: ViewGroup): RecipeViewHolder {
-            val inflater = LayoutInflater.from(parent.context)
-            val binding = RecyclerviewRecipeItemBinding.inflate(inflater, parent, false)
-            return RecipeViewHolder(binding)
         }
     }
 }

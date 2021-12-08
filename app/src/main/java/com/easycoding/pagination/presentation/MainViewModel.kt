@@ -5,10 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.easycoding.pagination.business.constants.AppConstants
 import com.easycoding.pagination.business.domain.model.Recipe
 import com.easycoding.pagination.business.usecases.GetRecipesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -25,13 +28,13 @@ class MainViewModel @Inject constructor(
 
     private var skipRecipes = 0
 
-    fun getRecipes(query: String? = null) = viewModelScope.launch {
+    fun fetchRecipes(query: String? = null) = viewModelScope.launch {
         Log.d(AppConstants.APP_TAG, "getRecipes called: $skipRecipes")
         // first load
         if (skipRecipes == 0) {
-            _dataLoading.value = true
+            setDataLoading(true)
         }
-        val recipes = getRecipesUseCase.getRecipes(
+        val recipes = getRecipesUseCase.fetchRecipes(
             query ?: "chicken",
             skipRecipes,
             skipRecipes + AppConstants.RECORD_LIMIT
@@ -39,6 +42,18 @@ class MainViewModel @Inject constructor(
 
         _recipes.value = recipes
         skipRecipes += recipes.size
-        _dataLoading.value = false
+        setDataLoading(false)
+    }
+
+    fun fetchRecipesForPagingAdapter(query: String? = null): Flow<PagingData<Recipe>> {
+        setDataLoading(true)
+
+        return getRecipesUseCase
+            .getRecipesAsPagingData(query ?: "chicken")
+            .cachedIn(viewModelScope)
+    }
+
+    fun setDataLoading(loading: Boolean) {
+        _dataLoading.value = loading
     }
 }

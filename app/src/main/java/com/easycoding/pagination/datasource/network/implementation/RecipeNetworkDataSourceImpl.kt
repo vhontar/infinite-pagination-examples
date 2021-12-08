@@ -7,7 +7,6 @@ import com.easycoding.pagination.datasource.network.abstraction.RecipeNetworkDat
 import com.easycoding.pagination.datasource.network.entities.toDomainModels
 import com.easycoding.pagination.datasource.network.utils.NetworkResult
 import com.easycoding.pagination.datasource.network.utils.safeApiCall
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
@@ -15,9 +14,9 @@ class RecipeNetworkDataSourceImpl @Inject constructor(
     private val networkService: NetworkService,
     private val context: Context
 ): RecipeNetworkDataSource {
-    override suspend fun getRecipes(query: String, skip: Int, limit: Int): List<Recipe> {
+    override suspend fun fetchRecipes(query: String, skip: Int, limit: Int): List<Recipe> {
         val response = safeApiCall(context, Dispatchers.IO) {
-            networkService.getRecipes(query, skip, limit)
+            networkService.fetchRecipes(query, skip, limit)
         }
 
         return when (response) {

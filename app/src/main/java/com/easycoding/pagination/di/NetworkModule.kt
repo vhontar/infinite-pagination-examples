@@ -1,8 +1,8 @@
 package com.easycoding.pagination.di
 
 import android.content.Context
-import com.easycoding.pagination.business.network.abstraction.RecipeNetwork
-import com.easycoding.pagination.business.network.implementation.RecipeNetworkImpl
+import com.easycoding.pagination.business.data.network.abstraction.RecipeNetwork
+import com.easycoding.pagination.business.data.network.implementation.RecipeNetworkImpl
 import com.easycoding.pagination.datasource.network.NetworkService
 import com.easycoding.pagination.datasource.network.abstraction.RecipeNetworkDataSource
 import com.easycoding.pagination.datasource.network.implementation.RecipeNetworkDataSourceImpl
