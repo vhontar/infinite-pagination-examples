@@ -47,7 +47,7 @@ abstract class PagingAdapter(
     }
 
     fun showLoading() {
-        // show that we want to load more data
+        // want to load more data
         loadMoreModeEnabled = true
 
         items.add(ProgressBarHolder())

@@ -63,7 +63,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.fetchRecipes()
         viewModel.recipes.observe(this) {
-            // somehow cannot cast
             adapterV2.pushList(it)
         }
     }
