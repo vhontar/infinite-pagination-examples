@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         _binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
-        binding.rvRecipes.layoutManager = GridLayoutManager(this, 2)
 
         // implementV1Adapter()
         // implementV2Adapter()
