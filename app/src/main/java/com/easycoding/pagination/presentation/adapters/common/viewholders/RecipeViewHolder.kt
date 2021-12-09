@@ -5,11 +5,16 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.easycoding.pagination.business.domain.model.Recipe
 import com.easycoding.pagination.databinding.RecyclerviewRecipeItemBinding
+import com.easycoding.pagination.presentation.adapters.common.holders.RecipeHolder
 import com.easycoding.pagination.utils.loadUrl
 
 class RecipeViewHolder(
     private val binding: RecyclerviewRecipeItemBinding
 ): RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(holder: RecipeHolder?) {
+        bind(holder?.recipe)
+    }
 
     fun bind(recipe: Recipe?) {
         if (recipe == null)

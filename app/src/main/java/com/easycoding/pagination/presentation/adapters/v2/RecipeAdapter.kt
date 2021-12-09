@@ -2,7 +2,7 @@ package com.easycoding.pagination.presentation.adapters.v2
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.easycoding.pagination.business.domain.model.Recipe
+import com.easycoding.pagination.presentation.adapters.common.holders.RecipeHolder
 import com.easycoding.pagination.presentation.adapters.common.viewholders.RecipeViewHolder
 import com.easycoding.pagination.presentation.adapters.v2.lib.ItemType
 import com.easycoding.pagination.presentation.adapters.v2.lib.PagingAdapter
@@ -21,7 +21,7 @@ class RecipeAdapter: PagingAdapter() {
         // if items doesn't have position or type doesn't match to Recipe
         try {
             when (holder) {
-                is RecipeViewHolder -> holder.bind(getItem(position) as Recipe?)
+                is RecipeViewHolder -> holder.bind(getItem(position) as RecipeHolder?)
             }
         } catch (e: Throwable) {
             LoggerUtils.logException(e)
@@ -30,7 +30,7 @@ class RecipeAdapter: PagingAdapter() {
 
     override fun getItemViewType(position: Int): Int {
         return when(getItem(position)) {
-            is Recipe -> ItemType.ITEM.ordinal
+            is RecipeHolder -> ItemType.ITEM.ordinal
             else -> ItemType.PROGRESS_BAR.ordinal
         }
     }

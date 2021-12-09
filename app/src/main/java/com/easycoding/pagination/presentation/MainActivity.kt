@@ -1,24 +1,23 @@
 package com.easycoding.pagination.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
-import androidx.recyclerview.widget.GridLayoutManager
 import com.easycoding.pagination.R
 import com.easycoding.pagination.databinding.ActivityMainBinding
+import com.easycoding.pagination.presentation.adapters.common.holders.RecipeHolder
 import com.easycoding.pagination.presentation.adapters.v3.RecipeLoaderStateAdapter
-import com.easycoding.pagination.presentation.adapters.v1.RecipeAdapter as RecipeV1Adapter
-import com.easycoding.pagination.presentation.adapters.v2.RecipeAdapter as RecipeV2Adapter
-import com.easycoding.pagination.presentation.adapters.v3.RecipeAdapter as RecipeV3Adapter
-import com.easycoding.pagination.presentation.adapters.v1.lib.PaginationScrollListener as PaginationScrollListenerV1
-import com.easycoding.pagination.presentation.adapters.v2.lib.PaginationScrollListener as PaginationScrollListenerV2
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
+import com.easycoding.pagination.presentation.adapters.v1.RecipeAdapter as RecipeV1Adapter
+import com.easycoding.pagination.presentation.adapters.v1.lib.PaginationScrollListener as PaginationScrollListenerV1
+import com.easycoding.pagination.presentation.adapters.v2.RecipeAdapter as RecipeV2Adapter
+import com.easycoding.pagination.presentation.adapters.v2.lib.PaginationScrollListener as PaginationScrollListenerV2
+import com.easycoding.pagination.presentation.adapters.v3.RecipeAdapter as RecipeV3Adapter
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -38,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewmodel = viewModel
 
-        // implementV1Adapter()
+        implementV1Adapter()
         // implementV2Adapter()
-        implementV3Adapter()
+        // implementV3Adapter()
     }
 
     private fun implementV1Adapter() {
@@ -50,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.fetchRecipes()
-        viewModel.recipes.observe(this) {
-            adapterV1.pushList(it)
+        viewModel.recipes.observe(this) { recipes ->
+            adapterV1.pushList(recipes.map { RecipeHolder(it) })
         }
     }
 
@@ -62,8 +61,8 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.fetchRecipes()
-        viewModel.recipes.observe(this) {
-            adapterV2.pushList(it)
+        viewModel.recipes.observe(this) { recipes ->
+            adapterV2.pushList(recipes.map { RecipeHolder(it) })
         }
     }
 
